@@ -1,0 +1,28 @@
+// gitの初期化
+git init
+
+// インデックス状態を確認
+git status
+
+// インデックスに登録
+git add test1 test2 test3
+// 全てをインデックスに登録
+git add .
+
+// コメントを追加してコミット完了
+git commit -m "コメント"
+
+// リポジトリの変更履歴の確認
+git log
+
+// リモートリポジトリorigin作成
+git remote add origin https://github.com/ユーザー名/プロジェクト名.git
+
+// originでリモートリポジトリへコミットをpush
+git push -u origin master
+
+// リモートリポジトリからの取り込み
+git pull origin master
+
+// --graphでテキストで履歴の流れを表示 --onelineでコミットの情報を一行で表示
+git log --graph --oneline

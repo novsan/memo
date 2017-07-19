@@ -1,0 +1,70 @@
+// macにvirtualbox,docker インストール
+brew cask install virtualbox
+brew install docker-machine
+brew install docker
+
+// docker-machine コマンド
+// docker用仮想環境の作成
+docker-machine create --driver virtualbox マシン名
+// 仮想環境の削除
+docker-machine rm マシン名
+// TLS証明書の再生成
+docker-machine regenerate-certs マシン名
+// 最新バージョンにアップグレード
+docker-machine upgrade マシン名
+// 起動、再起動、停止、強制停止
+docker-machine start マシン名
+docker-machine restart マシン名
+docker-machine stop マシン名
+docker-machine kill マシン名
+// 接続する
+docker-machine ssh マシン名
+// マシンの確認
+docker-machine ls
+// マシンの状態確認
+docker-machine status マシン名
+// IPアドレスの確認
+docker-machine ip マシン名
+
+// docker コマンド
+// イメージ検索
+docker search イメージ
+// image取得
+docker pull centos[:7]
+// イメージ一覧
+docker images
+// コンテナ一覧(起動しているものだけ)
+docker ps
+// コンテナ一覧(起動していないものも含む)
+docker ps -a
+// ホスト名をつけて起動
+docker run --name ホスト名 -it centos /bin/bash
+// 起動して終了でコンテナ破棄
+docker run --rm -it centos /bin/bash
+// コンテナ起動時にCPU相対使用率を指定
+docker run -c 200 -i -t centos  /bin/bash
+// コンテナ起動時にメモリを指定
+docker run -m 512m -i -t centos /bin/bash
+// コンテナのバックグラウンド起動
+docker run -itd centos /bin/bash
+// データボリュームでコンテナ間でデータ共有
+docker run --name tmp -v /tmp -i -t centos /bin/bash
+docker run --volumes-from tmp[:ro] -i -t centos /bin/bash
+// ホストの /var/www をコンテナ内の /var/html からアクセスできるようにする
+docker run -it -v /var/www:/var/html centos /bin/bash
+// ホスト8080番portへの通信をコンテナ80番portへ転送
+docker run -it -p 8080:80 centos /bin/bash
+// コンテナ起動、停止、再起動、削除
+docker start コンテナ
+docker stop コンテナ
+docker restart コンテナ
+docker rm コンテナ
+// イメージ削除
+docker rmi イメージ
+// 起動しているコンテナに接続
+// exitすると終了
+docker attach コンテナ
+// exitしても終了しない
+docker exec -it コンテナ /bin/bash
+// 稼働中のコンテナのIPアドレス一覧
+docker ps -q | xargs docker inspect -f "{{.Name}} {{.NetworkSettings.IPAddress}}"
